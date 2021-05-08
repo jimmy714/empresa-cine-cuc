@@ -1,5 +1,5 @@
 # empresa-cine-cuc
-![logo](/storage/app/cineCUC.svg)
+![logo](/storage/app/public/cineCUC.svg)
   
   A continuación se hace una descripción general de algunos aspectos del App:
  
