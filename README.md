@@ -49,7 +49,7 @@ La siguiente imagen muestra el diagrama ER de las bases de datos
 
   
   ### Migraciones
-Acontinuacion e encuentran las Migraciones en su orden de ejecución y entre {} lasTablas afectadas
+Acontinuacion se encuentran las Migraciones en su orden de ejecución y entre {} lasTablas afectadas
 
 Usuarios {Usuarios}<br>
 Peliculas {Peliculas}<br>
