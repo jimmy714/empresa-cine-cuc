@@ -21,6 +21,8 @@
         view(log_up)<br>
         view(profile_boletas)<br>
 
+        ![BD ER]{diagramaerbd.png}
+
 Migraciones (orden de ejecución)  {Tablas afectadas}
         Usuarios {Usuarios}<br>
         Peliculas-lugares {Peliculas, lugares}<br>
