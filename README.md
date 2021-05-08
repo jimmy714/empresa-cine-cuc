@@ -4,7 +4,7 @@
  **Nota**: Ejecutar migraciones
         Cargar archivo SQL de películas y funciones de seeders (opcional)
 
-        Las imágenes de los pósters de las películas almacenarlas en: 
+        Las imágenes de los pósters de las películas almacenarlas en: storage/app/public/posters
 
  
  
