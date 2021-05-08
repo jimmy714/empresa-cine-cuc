@@ -21,7 +21,7 @@
         view(log_up)<br>
         view(profile_boletas)<br>
 
-        ![BDER](/DiagramaERBD.png)
+        ![BDER](https://github.com/jimmy714/empresa-cine-cuc/blob/main/DiagramaERBD.png)
 
 Migraciones (orden de ejecución)  {Tablas afectadas}
         Usuarios {Usuarios}<br>
