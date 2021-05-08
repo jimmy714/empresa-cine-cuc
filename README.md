@@ -1,6 +1,8 @@
 # empresa-cine-cuc
 
 
+![BDER](/DiagramaERBD.png)
+
  **Nota**: Ejecutar migraciones
         Cargar archivo SQL de películas y funciones de seeders (opcional)
 
@@ -21,7 +23,6 @@
         view(log_up)<br>
         view(profile_boletas)<br>
 
-        ![BDER](/DiagramaERBD.png)
 
 Migraciones (orden de ejecución)  {Tablas afectadas}
         Usuarios {Usuarios}<br>
