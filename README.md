@@ -11,21 +11,21 @@
  Lista de Controladores y sus vistas asociadas
 
  ***Admin-controller
-        view(admin_funciones)
-        view(boletos_funciones)
-        view(admin_peliculas)
+        view(admin_funciones)<br>
+        view(boletos_funciones)<br>
+        view(admin_peliculas)<br>
 
 ***home-usuarios
-        view(home)
-        view(log_in)
-        view(log_up)
-        view(profile_boletas)
+        view(home)<br>
+        view(log_in)<br>
+        view(log_up)<br>
+        view(profile_boletas)<br>
 
 Migraciones (orden de ejecución)  {Tablas afectadas}
-        Usuarios {Usuarios}
-        Peliculas-lugares {Peliculas, lugares}
-        Funciones {funciones}
-        Boletas {Boletas}
+        Usuarios {Usuarios}<br>
+        Peliculas-lugares {Peliculas, lugares}<br>
+        Funciones {funciones}<br>
+        Boletas {Boletas}<br>
 
 Modelos
 
