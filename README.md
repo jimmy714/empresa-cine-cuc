@@ -21,7 +21,7 @@
         view(log_up)<br>
         view(profile_boletas)<br>
 
-        ![BDER](DiagramaERBD.png)
+        ![BDER](/DiagramaERBD.png)
 
 Migraciones (orden de ejecución)  {Tablas afectadas}
         Usuarios {Usuarios}<br>
