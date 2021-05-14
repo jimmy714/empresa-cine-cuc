@@ -2,33 +2,108 @@
 
 @section('title', 'Esta es una pagina de inicio de prueba')
 
-
 @section('content')
 
-<div class="album py-5 bg-light">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
+@foreach ($pelicula_info as $info)
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+  <h1 class="display-4">{{ $info->nombre_pelicula }}</h1>
+  <p class="lead">{{ $info->descripcion }}. </p>
+  <table class="table table-dark">
+    <thead class="thead-light">
+      <tr>
+        <th>Director</th>
+        <th>Genero</th>
+        <th>Clasificación</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{$info->director}}</td>
+        <td>{{$info->genero}}</td>
+        <td>@if ($info->solo_adultos)  
+          +18
+          @else Apto para todo público
+          @endif</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+@endforeach
 
-            <!-- Remplazar ppor el lector de imagenes -->
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+<h2 class="display-5">Próximas funciones</h2>
 
-            <div class="card-body">
-                <!-- Remplazar por las propiedades de la pelicula -->
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Próximas funciones</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Comprar tiquetes</button>
-                </div>
-                <small class="text-muted">9 mins</small>
-              </div>
-            </div>
-          </div>
-        </div>
+@foreach ($showtimes_con_lugares as $show)
+<table class="table table-dark">
+  <thead class="thead-dark">
+    <tr>
+      <th>Sala</th>
+      <th>Direccion</th>
+      <th>Entradas disponibles</th>
+      <th>Hora de inicio</th>
+      <th>Hora de fin</th>
+      <th></th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{$show->nombre_lugar}}</td>
+      <td>{{$show->direccion }}</td>
+      <td>{{$show->cupo }} de {{$show->aforo_max}}</td>
+      <td>{{$show->hora_inicio}}</td>
+      <td>{{$show->hora_fin}}</td>
+      <td></td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th><!-- en este boton se ejecuta el facturador -->
+      @guest
+
+      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#staticBackdropRegister">Adquirir entradas</button>
+
+      @else
+
+      <a href="{{ url('get_ticket') }}?showtime={{$show->id_funcion}}" class="btn btn-warning">Adquirir entradas</a>
+      @endguest
+
+        </th>
+    </tr>
+  </tfoot>
+</table>
+<br>
+    
+
+@endforeach
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdropRegister" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel"><img src="storage/cineCUC.svg" height="60"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Debes ser un usuario registrado e iniciar sesión para poder adquirir los tiquetes.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <a type="button" class="btn btn-primary" href="{{ url('/login') }}">Iniciar sesión</a>
+        <a type="button" class="btn btn-primary" href="{{ url('/register') }}">Registrarse</a>
       </div>
     </div>
+  </div>
 </div>
+
+
+
+
+
+
+
+
 
 @endsection

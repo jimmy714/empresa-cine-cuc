@@ -46,7 +46,7 @@
 
                   <!-- este botón envía a la pagina para obtener los tiquetes -->
                   {{-- <button type="button" class="btn btn-sm btn-outline-secondary">Comprar tiquetes</button> --}}
-                  <a href="{{ url('get_ticket') }}?cartelera={{$titulo->id_pelicula}}" class="btn btn-sm btn-outline-secondary">Comprar tiquetes</a>
+                  <a href="{{ url('showtimes') }}?cartelera={{$titulo->id_pelicula}}" class="btn btn-sm btn-outline-secondary">Comprar tiquetes</a>
                 </div>
                 <small class="text-muted">9 mins</small>
               </div>
@@ -109,7 +109,7 @@ function showFicha(datatitulo)
     $("#fichaModal .solo_adultos").html("Todo público<br>");
    }
    
-   $("#fichaModal .modal-footer").html('<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button><a href=/get_ticket?cartelera='+datatitulo[5]+' class="btn btn-primary">Ver funciones</a>');
+   $("#fichaModal .modal-footer").html('<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button><a href=/showtimes?cartelera='+datatitulo[5]+' class="btn btn-primary">Ver funciones</a>');
    $("#fichaModal").modal();
 }
 
