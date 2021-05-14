@@ -1,2 +1,0 @@
-
-sirve esta mierda <br>

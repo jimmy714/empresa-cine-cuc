@@ -3,10 +3,12 @@
 @section('title', 'Esta es una pagina de inicio de prueba')
 
 
-@section('sidebar')
-    @parent
+@section('content')
+    
+Aqui va el formulario
 
-    <p>This is appended to the master sidebar.</p>
 @endsection
+
+
     
     

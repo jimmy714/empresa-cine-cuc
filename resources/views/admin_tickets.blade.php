@@ -3,10 +3,8 @@
 @section('title', 'Esta es una pagina de inicio de prueba')
 
 
-@section('sidebar')
-    @parent
+@section('content')
 
-    <p>This is appended to the master sidebar.</p>
+Aqui va el panel de administracion de tiquetes
+    
 @endsection
-    
-    

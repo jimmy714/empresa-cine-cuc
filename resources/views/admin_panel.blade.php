@@ -4,6 +4,7 @@
 
 @section('content')
 
-Aqui va el panel de administracion de Peliculas
+Aqui va el panel de administracion principal
     
 @endsection
+    

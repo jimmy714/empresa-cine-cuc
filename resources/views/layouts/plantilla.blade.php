@@ -1,82 +1,34 @@
+<!doctype html>
+<html lang="en" class="h-100">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <!-- titulo -->
     <title>@yield('title')</title>
 
-    <!-- favicon -->
 
-    <!-- styles -->
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="css/headers.css" rel="stylesheet">
+    <!-- Styles-->
+    @include('layouts.styles')
+  
+  </head>
+  <body class="d-flex flex-column h-100">
     
+    <!-- Header -->
+    @include('layouts.header')
 
-    <style>
-        .bd-placeholder-img {
-          font-size: 1.125rem;
-          text-anchor: middle;
-          -webkit-user-select: none;
-          -moz-user-select: none;
-          user-select: none;
-        }
-    
-        @media (min-width: 768px) {
-          .bd-placeholder-img-lg {
-            font-size: 3.5rem;
-          }
-        }
-    </style>
+
+    <!-- Main Content -->
+    @yield('content')
 
 
 
-
-
-</head>
-<body>
-  <main>
-    <!-- header -->
-    @section('header')
-
-      @include('layouts.header')
-        
-    @show
-    
-
-
-   
-    <!-- nav -->
-
-    @section('sidebar')
-
-      @include('layouts.admin_sidebar')
-        Master sidebar <br>
-
-    @show
-   
-
-    <!-- content -->
-    <div class="container">
-
-            @yield('content')
-
-    </div>
-
-
-    <!-- footer -->
+    <!-- Footer -->
     @include('layouts.footer')
 
+    <!-- scripts -->
+    @include('layouts.scripts')
 
-    
-    <!-- script -->
 
-    <script src="{{ asset('js/bootstrap.min.js') }}" defer type="text/javascript"></script>
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-  </main>
-
-</body>
+  </body>
 </html>

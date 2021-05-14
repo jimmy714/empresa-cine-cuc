@@ -25,13 +25,13 @@ class CreateTableUsuarios extends Migration
              * Contraseña (password) Esta es añadida para realizar el login
             */
 
-            $table->id('id_usuario')->autoIncrement(10000); 
+            $table->id('id_usuario');/* ->autoIncrement(10000);  */
             $table->string('nombre',30);
             $table->string('apellido',30);
             $table->string('num_identificacion',10)->unique();
-            $table->string('e_mail',50)->unique();
+            $table->string('email',50)->unique();
             $table->string('celular',11);
-            $table->string('password',12);
+            $table->string('password');
 
             /**
              * Datos adicionales para realizar validaciones y seguridad:

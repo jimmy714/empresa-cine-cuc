@@ -17,7 +17,7 @@ class CreateTableFunciones extends Migration
             $table->id('id_funcion');
             $table->unsignedInteger('id_pelicula');
             $table->foreign('id_pelicula')->references('id_pelicula')->on('peliculas');
-            $table->dateTime('hora_incio');
+            $table->dateTime('hora_inicio');
             $table->dateTime('hora_fin');
             $table->unsignedInteger('id_lugar');
             $table->foreign('id_lugar')->references('id_lugar')->on('lugares');

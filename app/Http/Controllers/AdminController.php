@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    public function index(){
+
+        //para visualizar los tickets comprados
+        return view('admin_panel');
+    }
+    
     public function tickets(){
 
         //para visualizar los tickets comprados
