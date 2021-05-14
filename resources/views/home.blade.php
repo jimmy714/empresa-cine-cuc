@@ -46,7 +46,7 @@
 
                   <!-- este botón envía a la pagina para obtener los tiquetes -->
                   {{-- <button type="button" class="btn btn-sm btn-outline-secondary">Comprar tiquetes</button> --}}
-                  <a href="{{ url('get_ticket') }}?cartelera={{$titulo->id_pelicula}}&&titulopelicula={{$titulo->nombre_pelicula}}" class="btn btn-sm btn-outline-secondary">Comprar tiquetes</a>
+                  <a href="{{ url('get_ticket') }}?cartelera={{$titulo->id_pelicula}}" class="btn btn-sm btn-outline-secondary">Comprar tiquetes</a>
                 </div>
                 <small class="text-muted">9 mins</small>
               </div>

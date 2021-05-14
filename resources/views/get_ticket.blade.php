@@ -57,16 +57,16 @@
   </tbody>
   <tfoot>
     <tr>
-      <th>#pie</th>
+      <th><!-- en este boton se ejecuta un modal con la ficha para comprar el tiquete -->
+        <button type="button" class="btn btn-warning">Adquirir entradas</button></th>
     </tr>
   </tfoot>
 </table>
 <br>
     
 
-
-
 @endforeach
+
 
 
 
