@@ -18,16 +18,43 @@ class HomeController extends Controller
 
     public function show(Request $request){
 
-        $showtimes_con_lugares=DB::select('select * from funciones inner join lugares on funciones.id_lugar=lugares.id_lugar where id_pelicula=:id',['id'=>$request->cartelera]);
-        $pelicula_info=DB::select('select * from peliculas where id_pelicula=:id',['id'=>$request->cartelera]);
+        $showtimes_con_lugares=DB::select(
+
+            'SELECT funciones.id_funcion,funciones.hora_inicio,funciones.hora_fin,funciones.cupo,
+                    lugares.nombre_lugar,lugares.direccion,lugares.aforo_max
+            FROM funciones
+            INNER JOIN lugares ON funciones.id_lugar=lugares.id_lugar
+            WHERE id_pelicula=:id',['id'=>$request->cartelera]);
         
+        $pelicula_info=DB::select(
+
+            'SELECT nombre_pelicula,descripcion,director,genero,solo_adultos,poster 
+            FROM peliculas 
+            WHERE id_pelicula=:id',['id'=>$request->cartelera]);
 
 
+        
        return view('showtimes')->with('pelicula_info',$pelicula_info)->with('showtimes_con_lugares',$showtimes_con_lugares);
     }
 
 
     public function ticket(Request $request){
+
+      $showtime_for_ticket=DB::select(
+          
+            'SELECT peliculas.nombre_pelicula,peliculas.poster,
+                    lugares.nombre_lugar,lugares.direccion,lugares.aforo_max,
+                    funciones.hora_inicio,funciones.hora_fin,funciones.cupo
+            FROM funciones 
+            INNER JOIN lugares ON funciones.id_lugar=lugares.id_lugar 
+            INNER JOIN peliculas ON funciones.id_pelicula=peliculas.id_pelicula
+            WHERE id_funcion=:id',['id'=>$request->showtime]);
+          
+        
+        
+        
+        
+        
 
 
         /*aqui se verifica si la función tiene cupo disponible
@@ -46,8 +73,8 @@ class HomeController extends Controller
         */
 
 
-        return view('get_ticket')->with('showtime_for_ticket',$request->showtime);
-        //return $showtime;
+        //return view('get_ticket')->with('showtime_for_ticket',$request->showtime);
+        return $showtime_for_ticket;
     }
 
     public function store(){

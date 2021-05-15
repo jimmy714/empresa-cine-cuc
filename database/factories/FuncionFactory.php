@@ -32,7 +32,7 @@ class FuncionFactory extends Factory
             'hora_inicio'=>$this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s'),
             'hora_fin'=>$this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s'),
             'id_lugar'=>Lugar::all()->random()->id_lugar,
-            'cupo'=>10,
+            'cupo'=>$this->faker->randomNumber(1),
            
         ];
     }

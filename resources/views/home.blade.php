@@ -26,7 +26,7 @@
             <div class="card-body">
                 <!-- Remplazar por las propiedades de la pelicula -->
               <p class="card-text">{{ $titulo->nombre_pelicula }} <br>Género: {{ $titulo->genero }} @if ($titulo->solo_adultos)
-                 +18<br>
+                <span class="bg-danger text-white">+18</span><br>
               @endif</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">

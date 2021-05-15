@@ -21,7 +21,7 @@
         <td>{{$info->director}}</td>
         <td>{{$info->genero}}</td>
         <td>@if ($info->solo_adultos)  
-          +18
+          <span class="bg-danger text-white">+18</span>
           @else Apto para todo público
           @endif</td>
       </tr>
@@ -58,6 +58,13 @@
   <tfoot>
     <tr>
       <th><!-- en este boton se ejecuta el facturador -->
+
+      @if (($show->cupo)==0)
+
+      <a href="#?showtime={{$show->id_funcion}}" class="btn btn-danger">No hay entradas disponibles</a>
+      
+      @else
+
       @guest
 
       <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#staticBackdropRegister">Adquirir entradas</button>
@@ -65,7 +72,12 @@
       @else
 
       <a href="{{ url('get_ticket') }}?showtime={{$show->id_funcion}}" class="btn btn-warning">Adquirir entradas</a>
+
       @endguest
+
+      @endif
+
+     
 
         </th>
     </tr>
