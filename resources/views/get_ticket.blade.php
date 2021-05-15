@@ -22,20 +22,26 @@ Ya puedes comprar  {{auth()->user() }}<br>
 
 <div class="container">
   <div class="py-5 text-center">
-    <h2>Adquirir tiquetes</h2>
-    <p class="lead">Aquí va el nombre de la pelicula</p>
+    <h2>Adquirir tiquetes para:</h2>
+    <p class="lead">{{$showtime_for_ticket[0]->nombre_pelicula}}</p>
   </div>
 
+  <form class="needs-validation" novalidate>
   <div class="row">
+    
     <div class="col-md-4 order-md-2 mb-4">
       <h4 class="d-flex justify-content-between align-items-center mb-3">
-        {{-- <span class="text-muted">Cantidad tiquetes</span> --}}
+        
         <label class="text-muted" for="exampleFormControlSelect1">Cantidad tiquetes</label>
         
-        <select class="badge badge-secondary badge-pill"  id="exampleFormControlSelect1">
-          <option>Para 1 persona</option>
-          <option>Para 2 personas</option>
-          <option>Para 3 personas</option>
+        <select name="tiquetes" class="badge badge-secondary badge-pill"  id="exampleFormControlSelect1">
+          <option value="1">Para 1 persona</option>
+          @if ($showtime_for_ticket[0]->cupo>=2)
+          <option value="2">Para 2 personas</option>
+          @endif
+          @if (($showtime_for_ticket[0]->cupo>=3))
+          <option value="3">Para 3 personas</option>
+          @endif
         </select>
       
 
@@ -43,42 +49,42 @@ Ya puedes comprar  {{auth()->user() }}<br>
       <ul class="list-group mb-3">
         <li class="list-group-item d-flex justify-content-between lh-condensed">
           <div>
-            <h6 class="my-0">Aquí va el nombre de la pelicula</h6>
+            <h6 class="my-0">{{$showtime_for_ticket[0]->nombre_pelicula}}</h6>
             <small class="text-muted">Nombre de la función</small>
           </div>
-          <span class="text-muted">$0</span>
+          <span class="text-muted"></span>
         </li>
         <li class="list-group-item d-flex justify-content-between lh-condensed">
           <div>
-            <h6 class="my-0">Aquí va el nombre del lugar</h6>
-            <small class="text-muted">Lugar</small>
+            <h6 class="my-0">{{$showtime_for_ticket[0]->nombre_lugar}}</h6>
+            <small class="text-muted">Sala de exibición</small>
           </div>
-          <span class="text-muted">$0</span>
+          <span class="text-muted"></span>
         </li>
         <li class="list-group-item d-flex justify-content-between lh-condensed">
           <div>
-            <h6 class="my-0">Aquí va la dirección</h6>
+            <h6 class="my-0">{{$showtime_for_ticket[0]->direccion}}</h6>
             <small class="text-muted">Dirección</small>
           </div>
-          <span class="text-muted">$0</span>
+          <span class="text-muted"></span>
         </li>
         <li class="list-group-item d-flex justify-content-between bg-light">
           <div class="text-success">
-            <h6 class="my-0">Aquí va la hora de inicio</h6>
+            <h6 class="my-0">{{$showtime_for_ticket[0]->hora_inicio}}</h6>
             <small>Hora de inicio</small>
           </div>
-          <span class="text-success">-$5</span>
+          <span class="text-success"></span>
         </li>
         <li class="list-group-item d-flex justify-content-between bg-light">
           <div class="text-success">
-            <h6 class="my-0">Aquí va la hora de fin</h6>
+            <h6 class="my-0">{{$showtime_for_ticket[0]->hora_fin}}</h6>
             <small>Hora de fin</small>
           </div>
-          <span class="text-success">-$5</span>
+          <span class="text-success"></span>
         </li>
         <li class="list-group-item d-flex justify-content-between">
-          <span>Total (USD)</span>
-          <strong>$20</strong>
+          <span>Cupos disponibles:</span>
+          <strong>{{$showtime_for_ticket[0]->cupo}}</strong>
         </li>
       </ul>
 
@@ -92,19 +98,19 @@ Ya puedes comprar  {{auth()->user() }}<br>
       </form>
     </div>
     <div class="col-md-8 order-md-1">
-      <h4 class="mb-3">Billing address</h4>
-      <form class="needs-validation" novalidate>
+      <h4 class="mb-3">Datos de contacto</h4>
+      
         <div class="row">
           <div class="col-md-6 mb-3">
-            <label for="firstName">First name</label>
-            <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+            <label for="firstName">Primer nombre</label>
+            <input name="nombre" type="text" class="form-control" id="firstName" placeholder="" value="" required>
             <div class="invalid-feedback">
               Valid first name is required.
             </div>
           </div>
           <div class="col-md-6 mb-3">
-            <label for="lastName">Last name</label>
-            <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+            <label for="lastName">Segundo nombre</label>
+            <input name="apellido" type="text" class="form-control" id="lastName" placeholder="" value="" required>
             <div class="invalid-feedback">
               Valid last name is required.
             </div>
@@ -112,12 +118,12 @@ Ya puedes comprar  {{auth()->user() }}<br>
         </div>
 
         <div class="mb-3">
-          <label for="username">Username</label>
+          <label for="username">Usuario</label>
           <div class="input-group">
             <div class="input-group-prepend">
               <span class="input-group-text">@</span>
             </div>
-            <input type="text" class="form-control" id="username" placeholder="Username" required>
+            <input name='username' type="text" class="form-control" id="username" placeholder="Username" required>
             <div class="invalid-feedback" style="width: 100%;">
               Your username is required.
             </div>
@@ -125,50 +131,62 @@ Ya puedes comprar  {{auth()->user() }}<br>
         </div>
 
         <div class="mb-3">
-          <label for="email">Email <span class="text-muted">(Optional)</span></label>
-          <input type="email" class="form-control" id="email" placeholder="you@example.com">
+          <label for="email">Correo electrónico </label>
+          <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
           <div class="invalid-feedback">
             Please enter a valid email address for shipping updates.
           </div>
         </div>
 
         <div class="mb-3">
-          <label for="address">Address</label>
-          <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
+          <label for="address">Dirección de residencia <span class="text-muted">(Optional)</span></label>
+          <input type="text" class="form-control" id="address" placeholder="1234 Main St" >
           <div class="invalid-feedback">
             Please enter your shipping address.
           </div>
         </div>
 
         <div class="mb-3">
-          <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
+          <label for="address2">Celular</label>
+          <input type="text" class="form-control" id="address2" placeholder="Apartment or suite" required>
+          <div class="invalid-feedback">
+            Please provide a valid state.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="address2">Otro número de contacto <span class="text-muted">(Optional)</span></label>
           <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
         </div>
 
         <div class="row">
           <div class="col-md-5 mb-3">
-            <label for="country">Country</label>
+            <label for="country">Pais</label>
             <select class="custom-select d-block w-100" id="country" required>
               <option value="">Choose...</option>
-              <option>United States</option>
+              <option>Colombia</option>
             </select>
             <div class="invalid-feedback">
               Please select a valid country.
             </div>
           </div>
           <div class="col-md-4 mb-3">
-            <label for="state">State</label>
+            <label for="state">Ciudad</label>
             <select class="custom-select d-block w-100" id="state" required>
               <option value="">Choose...</option>
-              <option>California</option>
+              <option>Barranquilla</option>
+              <option>Soledad</option>
+              <option>Baranoa</option>
+              <option>Cartagena</option>
+              <option>Santa Marta</option>
             </select>
             <div class="invalid-feedback">
               Please provide a valid state.
             </div>
           </div>
           <div class="col-md-3 mb-3">
-            <label for="zip">Zip</label>
-            <input type="text" class="form-control" id="zip" placeholder="" required>
+            <label for="zip">Zip <span class="text-muted">(Optional)</span></label>
+            <input type="text" class="form-control" id="zip" placeholder="">
             <div class="invalid-feedback">
               Zip code required.
             </div>
@@ -176,17 +194,17 @@ Ya puedes comprar  {{auth()->user() }}<br>
         </div>
         <hr class="mb-4">
         <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="same-address">
-          <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
+          <input type="checkbox" class="custom-control-input" id="same-address" required>
+          <label class="custom-control-label" for="same-address">Autorizo a Cine Cuc para el tratamiento de mis datos personales, así como también ponerse en contacto conmigo. </label>
         </div>
         <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="save-info">
-          <label class="custom-control-label" for="save-info">Save this information for next time</label>
+          <input type="checkbox" class="custom-control-input" id="save-info" required>
+          <label class="custom-control-label" for="save-info">Entiendo que la función puede ser cancelada o modificada por parte de Cine Cuc con o sin previo aviso. </label>
         </div>
         <hr class="mb-4">
 
         <hr class="mb-4">
-        <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Obtener Tiquetes :)</button>
       </form>
     </div>
   </div>
@@ -198,8 +216,8 @@ Ya puedes comprar  {{auth()->user() }}<br>
     
 
 
+<script src="js/form-validation.js"></script>
 
 
-{{$showtime_for_ticket}}
 
 @endsection

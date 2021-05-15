@@ -71,7 +71,7 @@
 
       @else
 
-      <a href="{{ url('get_ticket') }}?showtime={{$show->id_funcion}}" class="btn btn-warning">Adquirir entradas</a>
+      <a href="{{ url('get_ticket') }}?showtime={{$show->id_funcion}}&peliculaid={{$info->id_pelicula}}" class="btn btn-warning">Adquirir entradas</a>
 
       @endguest
 
