@@ -36,6 +36,12 @@
           @if (($showtime_for_ticket[0]->cupo>=3))
           <option value="3">Para 3 personas</option>
           @endif
+          @if (($showtime_for_ticket[0]->cupo>=4))
+          <option value="4">Para 4 personas</option>
+          @endif
+          @if (($showtime_for_ticket[0]->cupo>=5))
+          <option value="5">Para 5 personas</option>
+          @endif
         </select>
       
 
@@ -157,7 +163,7 @@
           <div class="col-md-5 mb-3">
             <label for="country">Pais</label>
             <select class="custom-select d-block w-100" id="country" required>
-              <option value="">Elegir...</option>
+              <option value="Colombia">Elegir...</option>
               <option>Colombia</option>
             </select>
             <div class="invalid-feedback">
@@ -167,7 +173,7 @@
           <div class="col-md-4 mb-3">
             <label for="state">Ciudad</label>
             <select class="custom-select d-block w-100" id="state" required>
-              <option value="">Elegir...</option>
+              <option value="Barranquilla">Elegir...</option>
               <option>Barranquilla</option>
               <option>Soledad</option>
               <option>Baranoa</option>

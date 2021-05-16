@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 /*Ruta Home */
 Route::get('/', HomeController::class);
-Route::get('showtimes',[HomeController::class,'show']);
+Route::get('showtimes',[HomeController::class,'show'])->name('showtimes');
 Route::get('get_ticket',[HomeController::class,'ticket'])->Middleware('auth');
 Route::post('get_ticket',[HomeController::class,'store']);
 

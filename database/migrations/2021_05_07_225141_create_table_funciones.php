@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateTableFunciones extends Migration
@@ -26,6 +27,13 @@ class CreateTableFunciones extends Migration
 
             $table->timestamps();
         });
+
+        //Dado que Postgree no soporta Unsigned Integers 
+        DB::insert(
+            'ALTER TABLE funciones 
+            ADD CONSTRAINT cupo
+            CHECK (cupo>=0);'
+        );
     }
 
     /**

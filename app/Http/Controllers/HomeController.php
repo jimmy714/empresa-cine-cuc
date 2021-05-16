@@ -45,6 +45,8 @@ class HomeController extends Controller
     }
 
 
+
+
     public function ticket(Request $request)
     {
 
@@ -70,7 +72,7 @@ class HomeController extends Controller
                     FROM funciones 
                     INNER JOIN lugares ON funciones.id_lugar=lugares.id_lugar 
                     INNER JOIN peliculas ON funciones.id_pelicula=peliculas.id_pelicula
-                    WHERE id_funcion=:id AND cupo>0',
+                    WHERE id_funcion=:id AND cupo>=0',
                     ['id' => $request->showtime]
                 );
 
@@ -102,21 +104,56 @@ class HomeController extends Controller
 
         /*aqui nuevamente se verifica si la función tiene cupo solicitado 
         
-        si lo tiene, intenta realizar la operación :  cupo_disponible-numero_de_boletas_solicitado
+        si lo tiene, intenta realizar la operación :  
+        cupo_disponible-numero_de_boletas_solicitado
 
-        Si luego de la operación se cumple que cupo_disponible es 0 o más que cero
+        Si luego de la operación se cumple
 
         Se retorna mensaje de exito y se redirije al dashboard
 
-        Sino retorna mensaje de error y se reverifica el cupo disponible
+        Sino retorna mensaje de error y redirige a la lista de funciones
+        Para evitar una colición en la verificación, tanto la verificaicon de cupo como la operacion
+
+        de sustraer el cupo solicitado se realiza directamente en la base de datos
+
+        PAra ello se utiliza una funcion y se ejecuta
 
         
         */
 
+        DB::select(
+            'CREATE OR REPLACE FUNCTION confirmarTiquete(id_funcion_req integer,tiquetes_req integer)
+            RETURNS boolean AS $$
+            DECLARE operacion_result boolean;
+            BEGIN
+            IF(SELECT cupo FROM funciones WHERE id_funcion=id_funcion_req)>=tiquetes_req
+            THEN
+                UPDATE funciones SET cupo=(CASE WHEN cupo>=tiquetes_req THEN cupo-tiquetes_req ELSE cupo END)
+                WHERE id_funcion=id_funcion_req;
+                RETURN true;
+            ELSE 
+                RETURN false;
+            END IF;
+            END; --Ejecutado desde Laravel
+            $$
+            LANGUAGE plpgsql;'
+        );
 
-
-
-        return $request;
+        $confirmar_cupos=DB::select(
+            'SELECT confirmarTiquete(:id,:tiquetes)',
+        
+        ['id'=>$request->showtime,'tiquetes'=>$request->tiquetes]
+        );
+       
+       if($confirmar_cupos==true)
+       {
+            return redirect('user_panel')->with('status','Transacción exitosa');
+       }
+       else
+       {
+            return redirect()->back()->with('error','Transacción no exitosa, intente de nuevo');
+       }
+       
 
         //return view('get_ticket')->with('status',$msg_operacion);
     }
