@@ -17,6 +17,7 @@ class CreateTableUsuarios extends Migration
         /**
              * Datos de usuario requeridos:
              * 
+             * Nombre de usuario (usuario_nickname)
              * Nombre
              * Apellido
              * Número de identificación
@@ -26,6 +27,7 @@ class CreateTableUsuarios extends Migration
             */
 
             $table->id('id_usuario');/* ->autoIncrement(10000);  */
+            $table->string('usuario_nickname',30)->unique();
             $table->string('nombre',30);
             $table->string('apellido',30);
             $table->string('num_identificacion',10)->unique();

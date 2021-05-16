@@ -20,6 +20,7 @@ class UsuarioSeeder extends Seeder
        
        /* Creación de usuario Admin */
        DB::table('usuarios')->insert([
+        'usuario_nickname'=>'admin',
         'nombre'=> 'admin',
         'apellido'=>'admin',
         'num_identificacion'=>'1122334455',
@@ -31,6 +32,7 @@ class UsuarioSeeder extends Seeder
        
         //Usando Eloquent para crear un usuario seed
         $usuario = new Usuario();
+        $usuario->usuario_nickname=Str::random(8);
         $usuario->nombre =Str::random(10);
         $usuario->apellido=Str::random(10);
         $usuario->num_identificacion=random_int(0,9999999999);
@@ -42,6 +44,7 @@ class UsuarioSeeder extends Seeder
 
         //Usando Query Builder para chear un usuario seed
         DB::table('usuarios')->insert([
+            'usuario_nickname'=>Str::random(8),
             'nombre' => Str::random(10),
             'apellido'=>Str::random(10),
             'num_identificacion'=>random_int(0,9999999999),

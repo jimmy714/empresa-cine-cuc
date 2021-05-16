@@ -21,12 +21,12 @@ use Illuminate\Support\Facades\Route;
 /*Ruta Home */
 Route::get('/', HomeController::class);
 Route::get('showtimes',[HomeController::class,'show']);
-Route::get('get_ticket',[HomeController::class,'ticket']);
+Route::get('get_ticket',[HomeController::class,'ticket'])->Middleware('auth');
 Route::post('get_ticket',[HomeController::class,'store']);
 
 /*Rutas para UsuariosController*/
 
-Route::get('login',[UsuariosController::class,'index']);
+Route::get('login',[UsuariosController::class,'index'])->name('login');
 Route::post('login',[UsuariosController::class,'validarlogin']);
 Route::post('logout',[UsuariosController::class,'validarlogout']);
 Route::post('register',[UsuariosController::class,'create']);
@@ -36,11 +36,11 @@ Route::get('user_panel',[UsuariosController::class,'show'])->Middleware('auth');
 
 
 /*Rutas para AdminController*/
-Route::get('admin',[AdminController::class,'index']);
-Route::post('admin',[AdminController::class,'store']);
-Route::get('admin/showtimes',[AdminController::class,'showtimes']);
-Route::get('admin/tickets',[AdminController::class,'tickets']);
-Route::get('admin/movies',[AdminController::class,'movies']);
+Route::get('admin',[AdminController::class,'index'])->Middleware('auth');
+Route::post('admin',[AdminController::class,'store'])->Middleware('auth');
+Route::get('admin/showtimes',[AdminController::class,'showtimes'])->Middleware('auth');
+Route::get('admin/tickets',[AdminController::class,'tickets'])->Middleware('auth');
+Route::get('admin/movies',[AdminController::class,'movies'])->Middleware('auth');
 
 
 

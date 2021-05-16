@@ -79,7 +79,7 @@ class HomeController extends Controller
             }
             else{
                 //si no hay cupo disponible retornar a la lista de funciones
-                return redirect()->route('showtimes',['cartelera'=>$request->peliculaid])->with('status','Lo sentimos, la funcion solicitada se ha quedado sin cupos disponibles');
+                return redirect()->route('showtimes',['cartelera'=>$request->peliculaid])->with('error','Lo sentimos, la funcion solicitada se ha quedado sin cupos disponibles');
             }
         }
 
@@ -93,11 +93,12 @@ class HomeController extends Controller
         /*aqui se verifica si la función tiene cupo disponible
 
 
-        return view('get_ticket')->with('showtime_for_ticket',$showtime_for_ticket);
-        
+        return view('get_ticket')->with('showtime_for_ticket',$showtime_for_ticket);*/
+     
     }
+    
 
-    public function store(){
+    public function store(Request $request){
 
         /*aqui nuevamente se verifica si la función tiene cupo solicitado 
         
@@ -115,7 +116,7 @@ class HomeController extends Controller
 
 
 
-        return;
+        return $request;
 
         //return view('get_ticket')->with('status',$msg_operacion);
     }

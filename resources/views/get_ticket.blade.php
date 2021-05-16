@@ -8,17 +8,10 @@
 
 
 @guest
-    mostrar en un modal:
-    Debes registrarte para comprar entradas<br>
-    Mostrar boton registrare si no<br>
-   retroceder a la pagína anterior de las funciones<br>
 
+  Debes registrarte para comprar entradas<br>   
 
 @else
-
-Ya puedes comprar  {{auth()->user() }}<br>
-
-
 
 <div class="container">
   <div class="py-5 text-center">
@@ -26,15 +19,16 @@ Ya puedes comprar  {{auth()->user() }}<br>
     <p class="lead">{{$showtime_for_ticket[0]->nombre_pelicula}}</p>
   </div>
 
-  <form class="needs-validation" novalidate>
+  <form method="POST" class="needs-validation" novalidate>
+    @csrf
   <div class="row">
     
     <div class="col-md-4 order-md-2 mb-4">
       <h4 class="d-flex justify-content-between align-items-center mb-3">
         
-        <label class="text-muted" for="exampleFormControlSelect1">Cantidad tiquetes</label>
+        <label class="text-muted" for="tiquetesSelect">Cantidad tiquetes</label>
         
-        <select name="tiquetes" class="badge badge-secondary badge-pill"  id="exampleFormControlSelect1">
+        <select name="tiquetes" class="badge badge-secondary badge-pill"  id="tiquetesSelect">
           <option value="1">Para 1 persona</option>
           @if ($showtime_for_ticket[0]->cupo>=2)
           <option value="2">Para 2 personas</option>
@@ -103,14 +97,14 @@ Ya puedes comprar  {{auth()->user() }}<br>
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="firstName">Primer nombre</label>
-            <input name="nombre" type="text" class="form-control" id="firstName" placeholder="" value="" required>
+            <input name="nombre" type="text" class="form-control" id="firstName" placeholder="Tu nombre" value="{{auth()->user()->nombre }}" required>
             <div class="invalid-feedback">
               Valid first name is required.
             </div>
           </div>
           <div class="col-md-6 mb-3">
             <label for="lastName">Segundo nombre</label>
-            <input name="apellido" type="text" class="form-control" id="lastName" placeholder="" value="" required>
+            <input name="apellido" type="text" class="form-control" id="lastName" placeholder="Tu apellido" value="{{auth()->user()->apellido }}" required>
             <div class="invalid-feedback">
               Valid last name is required.
             </div>
@@ -123,7 +117,7 @@ Ya puedes comprar  {{auth()->user() }}<br>
             <div class="input-group-prepend">
               <span class="input-group-text">@</span>
             </div>
-            <input name='username' type="text" class="form-control" id="username" placeholder="Username" required>
+            <input name='username' type="text" class="form-control" id="username" placeholder="Username" value="{{auth()->user()->usuario_nickname }}" readonly required>
             <div class="invalid-feedback" style="width: 100%;">
               Your username is required.
             </div>
@@ -132,7 +126,7 @@ Ya puedes comprar  {{auth()->user() }}<br>
 
         <div class="mb-3">
           <label for="email">Correo electrónico </label>
-          <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
+          <input name="email" type="email" class="form-control" id="email" placeholder="you@example.com" value="{{auth()->user()->email }}" required>
           <div class="invalid-feedback">
             Please enter a valid email address for shipping updates.
           </div>
@@ -140,7 +134,7 @@ Ya puedes comprar  {{auth()->user() }}<br>
 
         <div class="mb-3">
           <label for="address">Dirección de residencia <span class="text-muted">(Optional)</span></label>
-          <input type="text" class="form-control" id="address" placeholder="1234 Main St" >
+          <input name="direccionprnpal" type="text" class="form-control" id="address" placeholder="1234 Main St" >
           <div class="invalid-feedback">
             Please enter your shipping address.
           </div>
@@ -148,7 +142,7 @@ Ya puedes comprar  {{auth()->user() }}<br>
 
         <div class="mb-3">
           <label for="address2">Celular</label>
-          <input type="text" class="form-control" id="address2" placeholder="Apartment or suite" required>
+          <input name="celularprnpal" type="text" class="form-control" id="address2" placeholder="3##-#######" value="{{auth()->user()->celular}}" required>
           <div class="invalid-feedback">
             Please provide a valid state.
           </div>
@@ -156,14 +150,14 @@ Ya puedes comprar  {{auth()->user() }}<br>
 
         <div class="mb-3">
           <label for="address2">Otro número de contacto <span class="text-muted">(Optional)</span></label>
-          <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
+          <input name="celularsecundario" type="text" class="form-control" id="address2" placeholder="Apartment or suite">
         </div>
 
         <div class="row">
           <div class="col-md-5 mb-3">
             <label for="country">Pais</label>
             <select class="custom-select d-block w-100" id="country" required>
-              <option value="">Choose...</option>
+              <option value="">Elegir...</option>
               <option>Colombia</option>
             </select>
             <div class="invalid-feedback">
@@ -173,20 +167,21 @@ Ya puedes comprar  {{auth()->user() }}<br>
           <div class="col-md-4 mb-3">
             <label for="state">Ciudad</label>
             <select class="custom-select d-block w-100" id="state" required>
-              <option value="">Choose...</option>
+              <option value="">Elegir...</option>
               <option>Barranquilla</option>
               <option>Soledad</option>
               <option>Baranoa</option>
+              <option>Galapa</option>
               <option>Cartagena</option>
               <option>Santa Marta</option>
             </select>
             <div class="invalid-feedback">
-              Please provide a valid state.
+              Please provide a valid city.
             </div>
           </div>
           <div class="col-md-3 mb-3">
             <label for="zip">Zip <span class="text-muted">(Optional)</span></label>
-            <input type="text" class="form-control" id="zip" placeholder="">
+            <input name="zipcode" type="text" class="form-control" id="zip" placeholder="">
             <div class="invalid-feedback">
               Zip code required.
             </div>

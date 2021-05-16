@@ -5,6 +5,7 @@
 @section('content')
 
 @foreach ($pelicula_info as $info)
+<div class="container">
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
   <h1 class="display-4">{{ $info->nombre_pelicula }}</h1>
   <p class="lead">{{ $info->descripcion }}. </p>
@@ -87,7 +88,7 @@
     
 
 @endforeach
-
+</div>
 <!-- Modal -->
 <div class="modal fade" id="staticBackdropRegister" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
