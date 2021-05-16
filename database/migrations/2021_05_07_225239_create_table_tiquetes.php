@@ -21,7 +21,9 @@ class CreateTableTiquetes extends Migration
             $table->unsignedInteger('id_funcion');
             $table->foreign('id_funcion')->references('id_funcion')->on('funciones');
 
-            $table->timestamps();
+            /*Dado a que los tiquetes se generan y no hace falta actualizarlos no hace falta crear timestamps
+            //$table->timestamps();
+            */
         });
     }
 

@@ -8,6 +8,7 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
+use Psy\Command\WhereamiCommand;
 
 class UsuariosController extends Controller
 {
@@ -74,9 +75,14 @@ class UsuariosController extends Controller
         $datos_usuario = DB::table('usuarios')
         ->where('id_usuario',  $id_usuario_actual)
         ->get();
+
+        //historial de tiquetes
+        $historial_tiquetes=DB::table('tiquetes')
+        ->where('id_usuario', $id_usuario_actual )
+        ->get();
         
         
-        return view('user_panel')->with('datos_usuario',$datos_usuario);
+        return view('user_panel')->with('datos_usuario',$datos_usuario)->with('histotial_tiq',$historial_tiquetes);
         
     }
 

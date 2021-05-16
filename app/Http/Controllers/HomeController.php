@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -147,6 +149,20 @@ class HomeController extends Controller
        
        if($confirmar_cupos==true)
        {
+            for($i=1;$i<=$request->tiquetes;$i++)
+            {
+                DB::insert(
+                    'INSERT INTO tiquetes(id_usuario,fecha_up,id_funcion)
+                     VALUES (:id_usuario,:fecha_generacion,:funcion)',
+                    [
+                        'id_usuario'=>Auth::user()->id_usuario,
+                        'fecha_generacion'=>Carbon::now()->toDateTimeString(),
+                        'funcion'=>$request->showtime
+                    ]
+                );
+                
+            }
+
             return redirect('user_panel')->with('status','Transacción exitosa');
        }
        else
@@ -155,6 +171,5 @@ class HomeController extends Controller
        }
        
 
-        //return view('get_ticket')->with('status',$msg_operacion);
     }
 }
