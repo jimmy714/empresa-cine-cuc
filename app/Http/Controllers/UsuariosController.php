@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use PhpParser\Node\Stmt\TryCatch;
 
 class UsuariosController extends Controller
 {
@@ -23,22 +24,41 @@ class UsuariosController extends Controller
 
     public function validarlogin(Request $loginRequest){
 
-       $validated=$loginRequest->validate([
-            'email' => 'required|string',
+        $validated=$loginRequest->validate([
+            'emailOrUsuario' => 'required|string',
             'password' => 'required|string',
         ]);
 
-        
+        /*aquí verificamos si se ingresó un correo o un nombre de usuario
+        Simplmente buscamos si existe un email asociado a al valor ingresado como si fuera un usuario_nickname
 
-        //return($loginRequest);
-        
+        Si la búsqueda da null continuamos el login con el valor ingresado como email, sino se intenta con
+        el correo intentado
+
+        */
+
         if($validated)
         {
-            $credentials=$loginRequest->only('email','password');
+            $loginRequestAlter=$loginRequest;
+            $emailOrNickname= DB::table('usuarios')->where('usuario_nickname',$loginRequest->emailOrUsuario)->value('email');
+            
+            if ($emailOrNickname!=null)
+            {  
+                //Se ingresó un Usuario nickname
+                $loginRequestAlter['email']=$emailOrNickname;
+            }
+            else
+            {
+                //Se ingresó un email
+                $loginRequestAlter['email']=$loginRequest->emailOrUsuario;
+            }
+                      
+            $credentials=$loginRequestAlter->only('email','password');
+            
+            
             if(Auth::attempt($credentials))
             {
                 $loginRequest->session()->regenerate();
-
 
                 $hora_signin=Usuario::find(Auth::user()->id_usuario);
                 $hora_signin->hora_ultimo_login=Carbon::now()->toDateTimeString();
@@ -49,12 +69,13 @@ class UsuariosController extends Controller
                 ->with('status', 'Haz iniciado sesión satisfactoriamente');
             }
             throw ValidationException::withMessages([
-                'email'=>'El correo no se encuentra registrado',
+                'email'=>'Email o usuario no se encuentra registrado',
                 'password'=>'Contraseña incorrecta'
             ]);
             
             
         }
+        else
         
         return (redirect('login'));
         

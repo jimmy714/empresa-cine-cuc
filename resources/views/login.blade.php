@@ -42,13 +42,21 @@
 
     <!-- Recepción de errores de login provenientes de UsuariosController@login -->
    {{--  @error('email')){{'Usuario o contraseña incorrecta'}}@enderror --}}
-   
+
+ {{--   @if($errors->any())
+<div class="alert alert-danger" role="alert">
+    <ul>
+      @foreach($errors->all() as $error)
+      <li>{{$error}}</li>
+    @endforeach
+   </ul>
+
+</div>
+@endif --}}
 
 
 
     <pre>{{ Auth::user()}}</pre>
-
-
     
 <form class="form-signin" method="POST">
     <!-- usamos un token -->
@@ -60,12 +68,20 @@
   
   <!-- label e input para email -->
   <label for="inputEmail" class="sr-only">Email address</label>
-  <input type="email" value="{{ old('email')}}" id="inputEmail" name="email" class="form-control" placeholder="Dirección de E-mail" required autofocus>
+  <input type="text" value="{{ old('emailOrUsuario')}}" id="inputEmail" name="emailOrUsuario" class="form-control @error('email') is-invalid @enderror" placeholder="Usuario ó dirección de E-mail" required autofocus>
+  <div class="invalid-feedback">
+    @error('email'){{$message}}@enderror
+  </div>
 
 
   <!-- label e input para password -->
   <label for="inputPassword" class="sr-only">Password</label>
-  <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Contraseña" required>
+  <input type="password" id="inputPassword" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Contraseña" required>
+  <div class="invalid-feedback">
+    @error('password'){{$message}}@enderror
+  </div>
+
+
 
   <!-- checkbox para recordar datos -->
   <div class="checkbox mb-3">
@@ -81,13 +97,7 @@
 
 
 
-@if($errors->any())
-    <ul>
-      @foreach($errors->all() as $error)
-      <li>{{$error}}</li>
-    @endforeach
-   </ul>
-   @endif
+
 
   </body>
 </html>
