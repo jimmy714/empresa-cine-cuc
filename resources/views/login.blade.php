@@ -42,13 +42,7 @@
 
     <!-- Recepción de errores de login provenientes de UsuariosController@login -->
    {{--  @error('email')){{'Usuario o contraseña incorrecta'}}@enderror --}}
-   @if($errors->any())
-    <ul>
-      @foreach($errors->all() as $error)
-      <li>{{$error}}</li>
-    @endforeach
-   </ul>
-   @endif
+   
 
 
 
@@ -61,7 +55,7 @@
     @csrf
 
 
-  <img class="mb-4" src="storage/cineCUC.svg" height="80">
+  <a href="/"><img class="mb-4" src="storage/cineCUC.svg" height="80"></a>
   <h1 class="h3 mb-3 font-weight-normal">Por favor, inicie sesión</h1>
   
   <!-- label e input para email -->
@@ -84,6 +78,16 @@
   <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
   <p class="mt-5 mb-3 text-muted">&copy; 2017-2021</p>
 </form>
+
+
+
+@if($errors->any())
+    <ul>
+      @foreach($errors->all() as $error)
+      <li>{{$error}}</li>
+    @endforeach
+   </ul>
+   @endif
 
   </body>
 </html>

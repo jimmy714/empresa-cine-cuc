@@ -29,8 +29,8 @@ Route::post('get_ticket',[HomeController::class,'store']);
 Route::get('login',[UsuariosController::class,'index'])->name('login');
 Route::post('login',[UsuariosController::class,'validarlogin']);
 Route::post('logout',[UsuariosController::class,'validarlogout']);
-Route::post('register',[UsuariosController::class,'create']);
-Route::get('register',[UsuariosController::class,'store']);
+Route::get('register',[UsuariosController::class,'create']);
+Route::post('register',[UsuariosController::class,'store']);
 Route::get('user_panel',[UsuariosController::class,'show'])->Middleware('auth');
 
 
