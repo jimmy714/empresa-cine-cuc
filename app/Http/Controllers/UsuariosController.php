@@ -28,6 +28,8 @@ class UsuariosController extends Controller
             'password' => 'required|string',
         ]);
 
+        
+
         //return($loginRequest);
         
         if($validated)
